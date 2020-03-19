@@ -1,1 +1,5 @@
 https://en.wikipedia.org/wiki/Bloom_filter
+https://en.wikipedia.org/wiki/Wavelet_Tree
+https://en.wikipedia.org/wiki/Burrows%E2%80%93Wheeler_transform
+https://en.wikipedia.org/wiki/De_Bruijn_graph
+https://en.wikipedia.org/wiki/Suffix_array
