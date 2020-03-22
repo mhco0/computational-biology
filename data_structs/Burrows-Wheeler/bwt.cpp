@@ -1,10 +1,13 @@
-#include<bits/stdc++.h>
+#pragma once
+#include<vector>
+#include<string>
+#include<utility>
+#include<iostream>
 #include"../common/rotate.cpp"
-using namespace std;
 
 class bwt{
 private:
-	static int inverse(const vector<int>& v,const int &index,int callback){
+	static int inverse(const std::vector<int>& v,const int &index,int callback){
 		return (!callback) ? index : v[inverse(v,index,callback-1)];
 	};
 public:
@@ -15,21 +18,21 @@ public:
 	~bwt(){
 	}
 
-	static pair<string,int> encode(const string_view& s){
+	static std::pair<std::string,int> encode(const std::string_view& s){
 		int size = s.size();
-		vector<pair<string,int>> matrix(size);
-		string encoded_string = "";
+		std::vector<std::pair<std::string,int>> matrix(size);
+		std::string encoded_string = "";
 		int index = -1;		
 
 		for(int i=0;i<size;i++){
-			string cpy(s);
+				std::string cpy(s);
 
 			rotate(cpy,i);		
 	
 			matrix[i] = {cpy,i};
 		}
 
-		sort(matrix.begin(),matrix.end());
+		std::sort(matrix.begin(),matrix.end());
 
 		for(int i=0;i<size;i++){
 			encoded_string.push_back(matrix[i].first[size-1]);
@@ -42,17 +45,17 @@ public:
 		return {encoded_string,index};
 	}
 
-	static string decode(const pair<string,int> &encoded){
-		vector<pair<char,int>> sorted_string(encoded.first.size());
-		vector<int> translate(encoded.first.size());
-		string decoded_string(encoded.first.size(),' ');
+	static std::string decode(const std::pair<std::string,int> &encoded){
+		std::vector<std::pair<char,int>> sorted_string(encoded.first.size());
+		std::vector<int> translate(encoded.first.size());
+		std::string decoded_string(encoded.first.size(),' ');
 		int index = encoded.second;
 
 		for(int i=0;i<sorted_string.size();i++){
 			sorted_string[i] = {encoded.first[i],i};
 		}
 
-		sort(sorted_string.begin(),sorted_string.end());
+		std::sort(sorted_string.begin(),sorted_string.end());
 
 		for(int i=0;i<sorted_string.size();i++){
 			translate[sorted_string[i].second] = i;
@@ -68,13 +71,13 @@ public:
 
 
 int main(void){
- 	ios::sync_with_stdio(0);
-	cin.tie(0);
+	std::ios::sync_with_stdio(0);
+	std::cin.tie(0);
 	
 	auto a = bwt::encode("teste");
 
-	cout <<"("<< a.first << "," << a.second << ")" << endl;
-	cout << "translated: " << endl << bwt::decode(a) << endl;
+	std::cout <<"("<< a.first << "," << a.second << ")" << std::endl;
+	std::cout << "translated: " << std::endl << bwt::decode(a) << std::endl;
 
 	return 0;
 }
